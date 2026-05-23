@@ -1,0 +1,28 @@
+.auth-loader {
+  min-height: calc(100vh - 4rem);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1rem;
+  color: #475569;
+}
+
+.auth-spinner {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 4px solid #dbeafe;
+  border-top-color: #2563eb;
+  animation: authSpin 0.8s linear infinite;
+}
+
+.auth-loader p {
+  margin: 0;
+  font-weight: 700;
+}
+
+@keyframes authSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
