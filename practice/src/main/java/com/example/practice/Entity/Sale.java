@@ -18,7 +18,7 @@ public class Sale {
     @Column(name = "Sale_Date")
     private LocalDate saleDate;
 
-    @Column(name = "Sale_Time", columnDefinition = "TIME")
+    @Column(name = "Sale_Time")
     private LocalTime saleTime;
 
     @JsonIgnore
