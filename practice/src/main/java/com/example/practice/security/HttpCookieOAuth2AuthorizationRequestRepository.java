@@ -5,6 +5,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.stereotype.Component;
@@ -21,6 +24,12 @@ public class HttpCookieOAuth2AuthorizationRequestRepository
     );
     public static final String OAUTH2_COOKIE_NAME = "oauth2_auth_request";
     private static final int COOKIE_EXPIRE_SECONDS = 180;
+
+    @Value("${app.security.cookies.secure:false}")
+    private boolean secureCookies;
+
+    @Value("${app.security.cookies.same-site:Lax}")
+    private String sameSite;
 
     @Override
     public void saveAuthorizationRequest(
@@ -40,11 +49,15 @@ public class HttpCookieOAuth2AuthorizationRequestRepository
             }
             String encoded = Base64.getUrlEncoder().encodeToString(serialized);
 
-            Cookie cookie = new Cookie(OAUTH2_COOKIE_NAME, encoded);
-            cookie.setPath("/");
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(COOKIE_EXPIRE_SECONDS);
-            response.addCookie(cookie);
+            ResponseCookie cookie = ResponseCookie
+                    .from(OAUTH2_COOKIE_NAME, encoded)
+                    .path("/")
+                    .httpOnly(true)
+                    .secure(secureCookies)
+                    .sameSite(sameSite)
+                    .maxAge(COOKIE_EXPIRE_SECONDS)
+                    .build();
+            response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
         } catch (Exception e) {
             throw new RuntimeException(
@@ -100,10 +113,14 @@ public class HttpCookieOAuth2AuthorizationRequestRepository
 
     private void deleteCookie(HttpServletResponse response,
                               String name) {
-        Cookie cookie = new Cookie(name, "");
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie
+                .from(name, "")
+                .path("/")
+                .httpOnly(true)
+                .secure(secureCookies)
+                .sameSite(sameSite)
+                .maxAge(0)
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     }
 }

@@ -3,6 +3,7 @@ package com.example.practice.security;
 import com.example.practice.service.CustomUserDetailsService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,6 +40,12 @@ public class WebConfig {
     @Autowired
     private HttpCookieOAuth2AuthorizationRequestRepository
             cookieRepository;
+
+    @Autowired
+    private OAuthFailureHandler failureHandler;
+
+    @Value("${app.cors.allowed-origins}")
+    private String allowedOrigins;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
@@ -97,6 +104,7 @@ public class WebConfig {
                                 .authorizationRequestRepository(cookieRepository)
                         )
                         .successHandler(successHandler)
+                        .failureHandler(failureHandler)
                 )
 
                 .addFilterBefore(
@@ -129,10 +137,13 @@ public class WebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "http://127.0.0.1:5173"
-        ));
+        configuration.setAllowedOrigins(
+                List.of(allowedOrigins.split(","))
+                        .stream()
+                        .map(String::trim)
+                        .filter(origin -> !origin.isBlank())
+                        .toList()
+        );
         configuration.setAllowedMethods(List.of(
                 "GET",
                 "POST",

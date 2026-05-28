@@ -2,12 +2,14 @@ package com.example.practice.security;
 
 import com.example.practice.Entity.User;
 import com.example.practice.Repo.UserRepo;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -31,6 +33,18 @@ public class OAuthSuccessHandler
     @Autowired
     private HttpCookieOAuth2AuthorizationRequestRepository
             cookieRepository;
+
+    @Autowired
+    private JwtCookieService jwtCookieService;
+
+    @Value("${app.oauth.success-redirect}")
+    private String successRedirect;
+
+    @Value("${app.security.cookies.secure:false}")
+    private boolean secureCookies;
+
+    @Value("${app.security.cookies.same-site:Lax}")
+    private String sameSite;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -87,7 +101,7 @@ public class OAuthSuccessHandler
         String token = jwtService.generateToken(user);
 
         // Step 6 — set JWT in HttpOnly cookie
-        setJwtCookie(response, token);
+        jwtCookieService.addJwtCookie(response, token);
 
         // Step 7 — clean up OAuth state cookie
         clearOAuthCookie(response);
@@ -103,31 +117,22 @@ public class OAuthSuccessHandler
 //                "message",
 //                "OAuth login successful"
 //        );
-        response.sendRedirect("http://localhost:5173/");
+        response.sendRedirect(successRedirect);
         // ← no redirect, no further code, response ends here ✅
     }
 
     // ─── Helpers ───────────────────────────────────────
 
-    private void setJwtCookie(HttpServletResponse response,
-                              String token) {
-        Cookie cookie = new Cookie("jwt", token);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false);        // true in production
-        cookie.setPath("/");
-        cookie.setMaxAge(24 * 60 * 60); // 24 hours
-        response.addCookie(cookie);
-    }
-
     private void clearOAuthCookie(HttpServletResponse response) {
-        Cookie cookie = new Cookie(
-                HttpCookieOAuth2AuthorizationRequestRepository
-                        .OAUTH2_COOKIE_NAME, ""
-        );
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(0);    // expire immediately
-        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie
+                .from(HttpCookieOAuth2AuthorizationRequestRepository.OAUTH2_COOKIE_NAME, "")
+                .path("/")
+                .httpOnly(true)
+                .secure(secureCookies)
+                .sameSite(sameSite)
+                .maxAge(0)
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     }
 
     private void writeJsonResponse(HttpServletResponse response,

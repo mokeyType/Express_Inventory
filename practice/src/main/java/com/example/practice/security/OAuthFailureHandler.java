@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.AuthenticationException;
@@ -19,6 +20,15 @@ public class OAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     private final JwtCookieService jwtCookieService;
 
+    @Value("${app.oauth.failure-redirect}")
+    private String failureRedirect;
+
+    @Value("${app.security.cookies.secure:false}")
+    private boolean secureCookies;
+
+    @Value("${app.security.cookies.same-site:Lax}")
+    private String sameSite;
+
     public OAuthFailureHandler(JwtCookieService jwtCookieService) {
         this.jwtCookieService = jwtCookieService;
     }
@@ -31,11 +41,7 @@ public class OAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         log.warn("OAuth login failed: {}", exception.getMessage());
         clearOAuthCookie(response);
         jwtCookieService.clearJwtCookie(response);
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"error\": \"OAuth authentication failed\"}");
-        response.getWriter().flush();
+        response.sendRedirect(failureRedirect);
     }
 
     private void clearOAuthCookie(HttpServletResponse response) {
@@ -43,6 +49,8 @@ public class OAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
                 .from(HttpCookieOAuth2AuthorizationRequestRepository.OAUTH2_COOKIE_NAME, "")
                 .path("/")
                 .httpOnly(true)
+                .secure(secureCookies)
+                .sameSite(sameSite)
                 .maxAge(0)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
