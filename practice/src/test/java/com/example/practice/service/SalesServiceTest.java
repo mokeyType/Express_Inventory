@@ -10,6 +10,7 @@ import com.example.practice.dto.SaleRequest;
 import com.example.practice.dto.SaleResponse;
 import com.example.practice.exception.BadRequestException;
 import com.example.practice.security.AuthUtil;
+import org.mockito.InOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +26,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -127,10 +129,48 @@ class SalesServiceTest {
                 .hasMessageContaining("Not enough stock for: Mouse");
     }
 
+    @Test
+    void createSaleLocksProductsInProductIdOrder() {
+        User user = new User();
+        user.setEmail("anuj@example.com");
+        when(authUtil.getCurrentUser()).thenReturn(user);
+
+        Product firstProduct = product(1, "Keyboard", 10, "10.00");
+        Product thirdProduct = product(3, "Mouse", 10, "20.00");
+
+        when(productRepo.findWithLockByProductIdAndOwner(1, user))
+                .thenReturn(Optional.of(firstProduct));
+        when(productRepo.findWithLockByProductIdAndOwner(3, user))
+                .thenReturn(Optional.of(thirdProduct));
+        when(saleRepo.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+
+        SaleRequest request = new SaleRequest();
+        request.setSaleDate(LocalDate.now());
+        request.setItems(List.of(
+                item(3, 1),
+                item(1, 1)
+        ));
+
+        salesService.createSale(request);
+
+        InOrder inOrder = inOrder(productRepo);
+        inOrder.verify(productRepo).findWithLockByProductIdAndOwner(1, user);
+        inOrder.verify(productRepo).findWithLockByProductIdAndOwner(3, user);
+    }
+
     private SaleItemRequest item(int productId, int quantity) {
         SaleItemRequest item = new SaleItemRequest();
         item.setProductId(productId);
         item.setQuantity(quantity);
         return item;
+    }
+
+    private Product product(int productId, String name, int stock, String price) {
+        Product product = new Product();
+        ReflectionTestUtils.setField(product, "productId", productId);
+        product.setName(name);
+        product.setStock(stock);
+        product.setPrice(new BigDecimal(price));
+        return product;
     }
 }

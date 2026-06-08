@@ -33,6 +33,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -162,16 +163,27 @@ public class SalesService {
 
     private Map<Product, Integer> lockAndAggregateProducts(
             User user, List<SaleItemRequest> items) {
+        Map<Integer, Integer> requestedQuantitiesByProductId = new TreeMap<>();
+        for (SaleItemRequest itemRequest : items) {
+            requestedQuantitiesByProductId.merge(
+                    itemRequest.getProductId(),
+                    itemRequest.getQuantity(),
+                    Integer::sum
+            );
+        }
+
         Map<Product, Integer> requestedProducts = new LinkedHashMap<>();
 
-        for (SaleItemRequest itemRequest : items) {
+        for (Map.Entry<Integer, Integer> entry : requestedQuantitiesByProductId.entrySet()) {
+            int productId = entry.getKey();
+            int requestedQuantity = entry.getValue();
+
             Product product = productRepository
-                    .findWithLockByProductIdAndOwner(itemRequest.getProductId(), user)
+                    .findWithLockByProductIdAndOwner(productId, user)
                     .orElseThrow(() -> new ResourceNotFoundException(
-                            "Product with id " + itemRequest.getProductId() + " not found"
+                            "Product with id " + productId + " not found"
                     ));
 
-            int requestedQuantity = requestedProducts.getOrDefault(product, 0) + itemRequest.getQuantity();
             if (product.getStock() < requestedQuantity) {
                 log.warn("Insufficient stock for: {}. Available: {}, Requested: {}",
                         product.getName(), product.getStock(), requestedQuantity);
