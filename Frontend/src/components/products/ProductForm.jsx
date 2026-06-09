@@ -8,7 +8,7 @@ const emptyProduct = {
   stock: '',
 }
 
-function ProductForm({ product, onSubmit, onClose }) {
+function ProductForm({ product, onSubmit, onClose, isSubmitting }) {
   const [formData, setFormData] = useState(product || emptyProduct)
   const [errors, setErrors] = useState({})
   const isEditing = Boolean(product)
@@ -105,11 +105,11 @@ function ProductForm({ product, onSubmit, onClose }) {
           </div>
 
           <div className="modal-actions">
-            <button type="button" className="secondary-action" onClick={onClose}>
+            <button type="button" className="secondary-action" onClick={onClose} disabled={isSubmitting}>
               Cancel
             </button>
-            <button type="submit" className="primary-action">
-              {isEditing ? 'Update Product' : 'Create Product'}
+            <button type="submit" className="primary-action" disabled={isSubmitting}>
+              {isSubmitting ? (isEditing ? 'Updating…' : 'Creating…') : isEditing ? 'Update Product' : 'Create Product'}
             </button>
           </div>
         </form>

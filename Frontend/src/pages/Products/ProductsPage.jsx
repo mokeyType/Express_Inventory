@@ -28,6 +28,7 @@ function ProductsPage() {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null)
   const [productToDelete, setProductToDelete] = useState(null)
+  const [isSavingProduct, setIsSavingProduct] = useState(false)
 
   // Fetch products from API on component mount
   useEffect(() => {
@@ -131,6 +132,7 @@ function ProductsPage() {
   }
 
   const handleUpsertProduct = async (productData) => {
+    setIsSavingProduct(true)
     try {
       if (productData.productId) {
         // Update existing product
@@ -158,6 +160,8 @@ function ProductsPage() {
       setError(err.message)
       setSuccess(null)
       console.error('Error saving product:', err)
+    } finally {
+      setIsSavingProduct(false)
     }
   }
 
@@ -311,6 +315,7 @@ function ProductsPage() {
             setIsFormOpen(false)
             setEditingProduct(null)
           }}
+          isSubmitting={isSavingProduct}
         />
       )}
 
