@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 const emptyProduct = {
   category: '',
@@ -11,7 +11,15 @@ const emptyProduct = {
 function ProductForm({ product, onSubmit, onClose, isSubmitting }) {
   const [formData, setFormData] = useState(product || emptyProduct)
   const [errors, setErrors] = useState({})
+  const [localSubmitting, setLocalSubmitting] = useState(false)
+  const isMountedRef = useRef(true)
   const isEditing = Boolean(product)
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -19,7 +27,7 @@ function ProductForm({ product, onSubmit, onClose, isSubmitting }) {
     setErrors((currentErrors) => ({ ...currentErrors, [name]: '' }))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const nextErrors = validateProduct(formData)
 
@@ -28,14 +36,23 @@ function ProductForm({ product, onSubmit, onClose, isSubmitting }) {
       return
     }
 
-    onSubmit({
-      ...formData,
-      category: formData.category.trim(),
-      name: formData.name.trim(),
-      brand: formData.brand.trim(),
-      price: Number(formData.price),
-      stock: Number(formData.stock),
-    })
+    setLocalSubmitting(true)
+    try {
+      await onSubmit({
+        ...formData,
+        category: formData.category.trim(),
+        name: formData.name.trim(),
+        brand: formData.brand.trim(),
+        price: Number(formData.price),
+        stock: Number(formData.stock),
+      })
+    } catch (err) {
+      // parent handles errors; rethrowing isn't necessary here
+      // but we keep it simple and allow caller to show messages
+      throw err
+    } finally {
+      if (isMountedRef.current) setLocalSubmitting(false)
+    }
   }
 
   return (
@@ -105,11 +122,17 @@ function ProductForm({ product, onSubmit, onClose, isSubmitting }) {
           </div>
 
           <div className="modal-actions">
-            <button type="button" className="secondary-action" onClick={onClose} disabled={isSubmitting}>
+            <button type="button" className="secondary-action" onClick={onClose} disabled={isSubmitting || localSubmitting}>
               Cancel
             </button>
-            <button type="submit" className="primary-action" disabled={isSubmitting}>
-              {isSubmitting ? (isEditing ? 'Updating…' : 'Creating…') : isEditing ? 'Update Product' : 'Create Product'}
+            <button type="submit" className="primary-action" disabled={isSubmitting || localSubmitting}>
+              {isSubmitting || localSubmitting
+                ? isEditing
+                  ? 'Updating…'
+                  : 'Creating…'
+                : isEditing
+                ? 'Update Product'
+                : 'Create Product'}
             </button>
           </div>
         </form>
