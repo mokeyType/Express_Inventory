@@ -138,7 +138,7 @@ function LoginForm() {
         </div>
 
         <button type="submit" className="login-submit" disabled={submitting}>
-          {submitting ? 'Signing in...' : 'Sign In'}
+          {submitting ? 'Logging in...' : 'Login'}
         </button>
       </form>
 
