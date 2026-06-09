@@ -5,7 +5,11 @@ import './UserSettings.css'
 
 function UserSettings() {
   const navigate = useNavigate()
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
+  const displayName = user?.name || 'Signed-in user'
+  const displayEmail = user?.email || 'Email will appear after backend redeploy'
+  const authProvider = user?.authProvider === 'GOOGLE' ? 'Google account' : 'Email and password'
+  const avatarInitial = displayName.trim().charAt(0).toUpperCase() || 'U'
   const [formData, setFormData] = useState({
     username: '',
     bio: '',
@@ -172,12 +176,35 @@ function UserSettings() {
           </div>
         </div>
 
-        <div className="settings-card danger-card">
-          <h2>Account</h2>
-          <p>Sign out from your account or manage your session.</p>
-          <button type="button" onClick={handleLogout} className="btn-danger">
-            Logout
-          </button>
+        <div className="settings-sidebar">
+          <div className="settings-card account-card">
+            <div className="account-avatar" aria-hidden="true">
+              {avatarInitial}
+            </div>
+            <div className="account-summary">
+              <span className="account-label">Signed in as</span>
+              <h2>{displayName}</h2>
+              <p>{displayEmail}</p>
+            </div>
+            <dl className="account-details">
+              <div>
+                <dt>User ID</dt>
+                <dd>{user?.userId ?? '-'}</dd>
+              </div>
+              <div>
+                <dt>Login method</dt>
+                <dd>{authProvider}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="settings-card danger-card">
+            <h2>Account access</h2>
+            <p>Sign out from this browser session when you are done.</p>
+            <button type="button" onClick={handleLogout} className="btn-danger">
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </section>

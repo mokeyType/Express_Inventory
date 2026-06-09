@@ -62,7 +62,12 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        return ResponseEntity.ok(new LoginResponse(user.getName(), user.getId()));
+        return ResponseEntity.ok(new LoginResponse(
+                user.getName(),
+                user.getEmail(),
+                user.getId(),
+                user.getAuthProvider().name()
+        ));
     }
 
     @Operation(summary = "Logout")

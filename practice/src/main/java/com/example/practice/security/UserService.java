@@ -81,7 +81,9 @@ public class UserService {
         }
         return new LoginResponse(
                 saved.getName(),
-                saved.getId()
+                saved.getEmail(),
+                saved.getId(),
+                saved.getAuthProvider().name()
         );
     }
 
@@ -120,7 +122,9 @@ public class UserService {
 
         return new LoginResponse(
                 user.getName(),
-                user.getId()
+                user.getEmail(),
+                user.getId(),
+                user.getAuthProvider().name()
         );
     }
 
