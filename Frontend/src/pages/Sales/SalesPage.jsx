@@ -166,6 +166,7 @@ function SalesPage() {
               items={selectedProducts}
               onQuantityChange={handleQuantityChange}
               onRemoveProduct={handleRemoveProduct}
+              isCreatingSale={isCreatingSale}
             />
 
             <SalesSummary

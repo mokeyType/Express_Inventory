@@ -1,4 +1,4 @@
-function QuantityInput({ value, max, onChange, labelledBy }) {
+function QuantityInput({ value, max, onChange, labelledBy, disabled }) {
   const handleChange = (event) => {
     const nextValue = Number(event.target.value)
 
@@ -19,6 +19,7 @@ function QuantityInput({ value, max, onChange, labelledBy }) {
       value={value}
       aria-labelledby={labelledBy}
       onChange={handleChange}
+      disabled={disabled}
     />
   )
 }

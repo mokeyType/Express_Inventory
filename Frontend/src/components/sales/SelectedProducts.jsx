@@ -1,6 +1,6 @@
 import QuantityInput from './QuantityInput'
 
-function SelectedProducts({ items, onQuantityChange, onRemoveProduct }) {
+function SelectedProducts({ items, onQuantityChange, onRemoveProduct, isCreatingSale }) {
   return (
     <section className="sale-card">
       <div className="section-heading">
@@ -49,6 +49,7 @@ function SelectedProducts({ items, onQuantityChange, onRemoveProduct }) {
                         max={item.stock}
                         labelledBy={quantityId}
                         onChange={(quantity) => onQuantityChange(item.productId, quantity)}
+                        disabled={isCreatingSale}
                       />
                     </td>
                     <td>{formatCurrency(item.price)}</td>
@@ -60,6 +61,7 @@ function SelectedProducts({ items, onQuantityChange, onRemoveProduct }) {
                         type="button"
                         className="sale-danger-small"
                         onClick={() => onRemoveProduct(item.productId)}
+                        disabled={isCreatingSale}
                       >
                         Remove
                       </button>
