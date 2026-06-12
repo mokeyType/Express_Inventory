@@ -9,16 +9,16 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  min-height: 68px;
-  padding: 0 2rem;
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  gap: 1rem;
+  min-height: 72px;
+  padding: 0 1.75rem;
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.07);
   position: sticky;
   top: 0;
   z-index: 20;
   backdrop-filter: blur(14px);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
 }
 
 .brand {
@@ -76,19 +76,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
-  padding: 0.55rem 0.8rem;
-  border-radius: 8px;
+  min-height: 42px;
+  padding: 0.65rem 0.95rem;
+  gap: 0.5rem;
+  border-radius: 12px;
   color: #475569;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
   font-size: 0.9rem;
-  font-weight: 750;
+  font-weight: 700;
   text-align: center;
 }
 
 .nav-link:hover {
   color: #1d4ed8;
   background: #eff6ff;
+  transform: translateY(-1px);
 }
 
 .nav-link.active {
@@ -96,12 +98,63 @@
   background: #dbeafe;
 }
 
+.nav-link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: inherit;
+}
+
+.nav-link-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: 0.75rem;
   min-width: 230px;
+}
+
+.nav-settings {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 38px;
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #334155;
+}
+
+.nav-settings::before {
+  content: '';
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #e2e8f0;
+}
+
+.nav-logout {
+  min-height: 38px;
+  padding: 0 0.95rem;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 10px;
+  background: #ffffff;
+  color: #b91c1c;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .nav-settings {
