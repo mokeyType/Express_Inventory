@@ -1,4 +1,4 @@
-function ProductTable({ products, onEdit, onDelete }) {
+function ProductTable({ products, onEdit, onDelete, isSavingProduct }) {
   return (
     <div className="product-table-wrap">
       <table className="product-table">
@@ -30,10 +30,20 @@ function ProductTable({ products, onEdit, onDelete }) {
               </td>
               <td>
                 <div className="table-actions">
-                  <button type="button" className="ghost-action" onClick={() => onEdit(product)}>
+                  <button
+                    type="button"
+                    className="ghost-action"
+                    onClick={() => onEdit(product)}
+                    disabled={isSavingProduct}
+                  >
                     Edit
                   </button>
-                  <button type="button" className="danger-action" onClick={() => onDelete(product)}>
+                  <button
+                    type="button"
+                    className="danger-action"
+                    onClick={() => onDelete(product)}
+                    disabled={isSavingProduct}
+                  >
                     Delete
                   </button>
                 </div>

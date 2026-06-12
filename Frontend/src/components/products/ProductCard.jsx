@@ -1,4 +1,4 @@
-function ProductCard({ product, onEdit, onDelete }) {
+function ProductCard({ product, onEdit, onDelete, isSavingProduct }) {
   return (
     <article className="product-card">
       <div>
@@ -14,10 +14,10 @@ function ProductCard({ product, onEdit, onDelete }) {
         </span>
       </div>
       <div className="table-actions">
-        <button type="button" className="ghost-action" onClick={() => onEdit(product)}>
+        <button type="button" className="ghost-action" onClick={() => onEdit(product)} disabled={isSavingProduct}>
           Edit
         </button>
-        <button type="button" className="danger-action" onClick={() => onDelete(product)}>
+        <button type="button" className="danger-action" onClick={() => onDelete(product)} disabled={isSavingProduct}>
           Delete
         </button>
       </div>

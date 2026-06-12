@@ -204,7 +204,7 @@ function ProductsPage() {
             Manage tenant-ready product records, stock levels, and searchable inventory data from a clean operational workspace.
           </p>
         </div>
-        <button type="button" className="primary-action" onClick={handleAddProduct}>
+        <button type="button" className="primary-action" onClick={handleAddProduct} disabled={isSavingProduct}>
           Add Product
         </button>
       </div>
@@ -278,6 +278,7 @@ function ProductsPage() {
           products={visibleProducts}
           onEdit={handleEditProduct}
           onDelete={setProductToDelete}
+          isSavingProduct={isSavingProduct}
         />
 
         <div className="product-card-list">
@@ -287,6 +288,7 @@ function ProductsPage() {
               product={product}
               onEdit={handleEditProduct}
               onDelete={setProductToDelete}
+              isSavingProduct={isSavingProduct}
             />
           ))}
         </div>
