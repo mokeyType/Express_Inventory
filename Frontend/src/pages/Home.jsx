@@ -85,7 +85,37 @@ const dashboardStates = [
   },
 ]
 
+const sliderItems = [
+  {
+    headline: 'Built for every store',
+    title: 'All your inventory workflows in one polished app.',
+    description:
+      'Manage stock, sales, and orders with powerful previews, instant updates, and clean controls built for busy teams.',
+    accent: 'Fast setup • Real-time updates • Secure control',
+  },
+  {
+    headline: 'Sell more without the chaos',
+    title: 'Create sales, review totals, and manage products from a single workspace.',
+    description:
+      'Keep every sale accurate with product selection, quantity controls, and automatic totals that make checkout effortless.',
+    accent: 'Smart sales flow • Better accuracy • Faster checkout',
+  },
+  {
+    headline: 'Stay ahead of stock levels',
+    title: 'Low-stock alerts and inventory insights to avoid surprises.',
+    description:
+      'Spot items that need restocking quickly, so you keep shelves stocked and orders moving smoothly.',
+    accent: 'Actionable alerts • Inventory clarity • confident restocking',
+  },
+]
+
 function Home() {
+  const [activeFeature, setActiveFeature] = useState(0)
+  const [activePreview, setActivePreview] = useState(0)
+  const [activeSlide, setActiveSlide] = useState(0)
+  const animatedStats = useAnimatedStats(heroStats)
+  const preview = dashboardStates[activePreview]
+  const selectedFeature = features[activeFeature]
   const [activeFeature, setActiveFeature] = useState(0)
   const [activePreview, setActivePreview] = useState(0)
   const animatedStats = useAnimatedStats(heroStats)
@@ -98,6 +128,14 @@ function Home() {
     }, 1200)
 
     return () => window.clearInterval(previewTimer)
+  }, [])
+
+  useEffect(() => {
+    const sliderTimer = window.setInterval(() => {
+      setActiveSlide((currentSlide) => (currentSlide + 1) % sliderItems.length)
+    }, 4200)
+
+    return () => window.clearInterval(sliderTimer)
   }, [])
 
   return (
@@ -153,6 +191,63 @@ function Home() {
             </ul>
           </div>
         </aside>
+      </section>
+
+      <section className="home-slider">
+        <div className="slider-head">
+          <p className="eyebrow">Spotlight</p>
+          <h2>See the workflow built for every sale and stock decision.</h2>
+        </div>
+
+        <div className="slider-panel">
+          <div className="slider-track" aria-live="polite">
+            {sliderItems.map((slide, index) => (
+              <article
+                key={slide.headline}
+                className={`slider-item ${index === activeSlide ? 'active' : ''}`}
+                aria-hidden={index !== activeSlide}
+              >
+                <span className="slider-label">{slide.headline}</span>
+                <h3>{slide.title}</h3>
+                <p>{slide.description}</p>
+                <strong>{slide.accent}</strong>
+              </article>
+            ))}
+          </div>
+
+          <div className="slider-footer">
+            <div className="slider-controls">
+              <button
+                type="button"
+                className="slider-button"
+                onClick={() => setActiveSlide((current) => (current - 1 + sliderItems.length) % sliderItems.length)}
+                aria-label="Previous spotlight"
+              >
+                ← Previous
+              </button>
+              <button
+                type="button"
+                className="slider-button slider-button-primary"
+                onClick={() => setActiveSlide((current) => (current + 1) % sliderItems.length)}
+                aria-label="Next spotlight"
+              >
+                Next →
+              </button>
+            </div>
+
+            <div className="slider-dots">
+              {sliderItems.map((slide, index) => (
+                <button
+                  key={slide.headline}
+                  type="button"
+                  className={`slider-dot ${index === activeSlide ? 'active' : ''}`}
+                  onClick={() => setActiveSlide(index)}
+                  aria-label={`Show slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="features-section">
