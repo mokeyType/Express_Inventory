@@ -116,11 +116,6 @@ function Home() {
   const animatedStats = useAnimatedStats(heroStats)
   const preview = dashboardStates[activePreview]
   const selectedFeature = features[activeFeature]
-  const [activeFeature, setActiveFeature] = useState(0)
-  const [activePreview, setActivePreview] = useState(0)
-  const animatedStats = useAnimatedStats(heroStats)
-  const preview = dashboardStates[activePreview]
-  const selectedFeature = features[activeFeature]
 
   useEffect(() => {
     const previewTimer = window.setInterval(() => {
