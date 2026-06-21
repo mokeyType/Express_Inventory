@@ -146,8 +146,8 @@ function Home() {
           </p>
 
           <div className="hero-actions">
-            <Link to="/dashboard" className="hero-button">
-              Let&apos;s Start
+            <Link to="/login" className="hero-button">
+              Get Started
             </Link>
           </div>
 
