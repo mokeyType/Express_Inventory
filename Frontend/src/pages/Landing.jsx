@@ -15,8 +15,8 @@ function Landing() {
   }
 
   return (
-    <div className="home-page">
-      <section className="home-hero">
+    <div className="home-page landing-page">
+      <section className="home-hero landing-hero">
         <div className="hero-copy">
           <span className="eyebrow">ExpressInventory</span>
           <h1>Manage store inventory and sales with ease.</h1>
@@ -50,7 +50,7 @@ function Landing() {
           </div>
         </div>
 
-        <aside className="hero-panel">
+        <aside className="hero-panel landing-preview">
           <div className="hero-panel-card">
             <div className="panel-top">
               <span>Public landing</span>

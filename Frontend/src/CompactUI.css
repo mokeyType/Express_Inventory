@@ -269,6 +269,148 @@ select,
   border-radius: var(--radius-md);
 }
 
+/* The public page has no navbar/page-content wrapper, so it needs its own rhythm. */
+.landing-page {
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  padding: clamp(1.25rem, 4vh, 3rem) clamp(1rem, 4vw, 3rem);
+  background: #101010;
+}
+
+.landing-hero {
+  width: min(1240px, 100%);
+  min-height: min(610px, calc(100vh - 3rem));
+  margin: 0 auto;
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  border: 1px solid #303030;
+  border-radius: 12px;
+  background: #161616;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.24);
+}
+
+.landing-hero .hero-copy {
+  max-width: 610px;
+}
+
+.landing-hero .eyebrow {
+  margin-bottom: 0.7rem;
+}
+
+.landing-hero h1 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2.25rem, 4vw, 3.7rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+}
+
+.landing-hero .hero-copy > p {
+  max-width: 590px;
+  margin-top: 1rem;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.landing-hero .hero-actions {
+  gap: 0.75rem;
+  margin-top: 1.35rem;
+}
+
+.landing-hero .hero-button {
+  min-width: 118px;
+  min-height: 40px;
+  padding: 0.6rem 1.1rem;
+  color: #07110a;
+  box-shadow: none;
+}
+
+.landing-hero .hero-button--secondary {
+  color: #e7e7e7;
+  background: #262626;
+  border: 1px solid #3a3a3a;
+}
+
+.landing-hero .hero-stats {
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.landing-hero .hero-stat {
+  min-height: 108px;
+  padding: 0.85rem;
+  border-color: #303030;
+  background: #1d1d1d;
+  box-shadow: none;
+}
+
+.landing-hero .hero-stat strong {
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+
+.landing-hero .hero-stat p {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.landing-preview {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.landing-preview .hero-panel-card {
+  width: 100%;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #183c25, #112c1b);
+  border-color: rgba(61, 220, 114, 0.28);
+  box-shadow: none;
+}
+
+.landing-preview .panel-metric {
+  padding: 0.9rem;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.landing-preview .panel-metric strong {
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
+}
+
+.landing-preview .panel-bars {
+  height: 132px;
+  gap: 0.55rem;
+  padding: 0.85rem;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.landing-preview .hero-panel-card ul {
+  gap: 0.55rem;
+}
+
+.landing-preview .hero-panel-card li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.82rem;
+}
+
+.landing-preview .hero-panel-card li::before {
+  content: '';
+  position: absolute;
+  top: 0.52em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3ddc72;
+}
+
 @media (max-width: 900px) {
   .brand,
   .nav-actions {
@@ -281,6 +423,26 @@ select,
 
   :is(.filter-content, .dashboard-filter-content) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landing-page {
+    align-items: start;
+    padding: 1rem;
+  }
+
+  .landing-hero {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  .landing-hero .hero-copy {
+    max-width: none;
+  }
+
+  .landing-preview .hero-panel-card {
+    min-height: 0;
   }
 }
 
@@ -322,6 +484,47 @@ select,
   .login-info-panel,
   .login-form-panel {
     padding: 1rem;
+  }
+
+  .landing-page {
+    padding: 0.5rem;
+  }
+
+  .landing-hero {
+    gap: 1.25rem;
+    padding: 1.25rem;
+    border-radius: 8px;
+  }
+
+  .landing-hero h1 {
+    max-width: none;
+    font-size: clamp(2rem, 10vw, 2.7rem);
+  }
+
+  .landing-hero .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landing-hero .hero-button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .landing-hero .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-hero .hero-stat {
+    min-height: 0;
+  }
+
+  .landing-preview .panel-top {
+    align-items: flex-start;
+  }
+
+  .landing-preview .panel-bars {
+    height: 105px;
   }
 }
 
