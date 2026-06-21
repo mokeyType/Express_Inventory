@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar'
-import Home from '../pages/Home'
 import Landing from '../pages/Landing'
 import Dashboard from '../pages/Dashboard'
 import Products from '../pages/Products'
@@ -20,7 +19,6 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute />}>
         <Route element={<AuthenticatedShell />}>
-          <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/products" element={<Products />} />
           <Route path="/sales" element={<Sales />} />
