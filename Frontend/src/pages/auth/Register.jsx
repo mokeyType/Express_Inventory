@@ -13,7 +13,7 @@ function Register() {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/" replace />
   }
 
   return (
@@ -71,7 +71,7 @@ function Register() {
       <div className="login-form-panel">
         <RegisterForm />
         <div className="auth-footer">
-          <Link to="/">Back to Home</Link>
+          <Link to="/login">Back to Login</Link>
         </div>
       </div>
     </section>

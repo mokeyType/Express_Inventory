@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Home.css'
 import FeatureCard from '../components/FeatureCard'
-import { useAuth } from '../context/useAuth'
 
 const features = [
   {
@@ -111,17 +110,12 @@ const sliderItems = [
 ]
 
 function Home() {
-  const { isAuthenticated, loading } = useAuth()
   const [activeFeature, setActiveFeature] = useState(0)
   const [activePreview, setActivePreview] = useState(0)
   const [activeSlide, setActiveSlide] = useState(0)
   const animatedStats = useAnimatedStats(heroStats)
   const preview = dashboardStates[activePreview]
   const selectedFeature = features[activeFeature]
-
-  if (!loading && isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
-  }
 
   useEffect(() => {
     const previewTimer = window.setInterval(() => {

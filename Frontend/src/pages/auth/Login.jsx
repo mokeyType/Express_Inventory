@@ -13,7 +13,7 @@ function Login() {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/" replace />
   }
 
   return (
@@ -70,9 +70,6 @@ function Login() {
 
       <div className="login-form-panel">
         <LoginForm />
-        <div className="auth-footer">
-          <Link to="/">Back to Home</Link>
-        </div>
       </div>
     </section>
   )
