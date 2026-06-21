@@ -15,7 +15,7 @@ function LoginForm() {
   const [submitting, setSubmitting] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
-  const redirectTo = location.state?.from?.pathname || '/'
+  const redirectTo = location.state?.from?.pathname || '/dashboard'
 
   const handleChange = (event) => {
     const { name, value, checked, type } = event.target
