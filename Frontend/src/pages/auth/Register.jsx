@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import RegisterForm from '../../components/auth/RegisterForm'
 import Loader from '../../components/auth/Loader'
 import { useAuth } from '../../context/useAuth'
@@ -70,6 +70,9 @@ function Register() {
 
       <div className="login-form-panel">
         <RegisterForm />
+        <div className="auth-footer">
+          <Link to="/">Back to Home</Link>
+        </div>
       </div>
     </section>
   )

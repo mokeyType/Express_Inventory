@@ -147,7 +147,10 @@ function Home() {
 
           <div className="hero-actions">
             <Link to="/login" className="hero-button">
-              Get Started
+              Login
+            </Link>
+            <Link to="/about" className="hero-button hero-button--secondary">
+              Learn More
             </Link>
           </div>
 
