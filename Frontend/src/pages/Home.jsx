@@ -146,8 +146,8 @@ function Home() {
           </p>
 
           <div className="hero-actions">
-            <Link to="/login" className="hero-button">
-              Login
+            <Link to="/dashboard" className="hero-button">
+              Go to Dashboard
             </Link>
             <Link to="/about" className="hero-button hero-button--secondary">
               Learn More
