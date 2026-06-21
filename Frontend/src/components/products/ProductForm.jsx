@@ -46,10 +46,6 @@ function ProductForm({ product, onSubmit, onClose, isSubmitting }) {
         price: Number(formData.price),
         stock: Number(formData.stock),
       })
-    } catch (err) {
-      // parent handles errors; rethrowing isn't necessary here
-      // but we keep it simple and allow caller to show messages
-      throw err
     } finally {
       if (isMountedRef.current) setLocalSubmitting(false)
     }

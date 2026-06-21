@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import LoginForm from '../../components/auth/LoginForm'
 import Loader from '../../components/auth/Loader'
 import { useAuth } from '../../context/useAuth'
@@ -13,7 +13,7 @@ function Login() {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/home" replace />
   }
 
   return (

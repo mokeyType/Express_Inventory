@@ -1,12 +1,16 @@
-import { useEffect } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import './Home.css'
 import { useAuth } from '../context/useAuth'
+import Loader from '../components/auth/Loader'
 
 function Landing() {
   const { isAuthenticated, loading } = useAuth()
 
-  if (!loading && isAuthenticated) {
+  if (loading) {
+    return <Loader message="Checking your session..." />
+  }
+
+  if (isAuthenticated) {
     return <Navigate to="/home" replace />
   }
 

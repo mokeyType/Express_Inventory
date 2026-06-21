@@ -6,7 +6,7 @@ import storeIcon from '/src/logo.png'
 const navItems = [
   {
     label: 'Home',
-    path: '/',
+    path: '/home',
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-5H9v5H4a1 1 0 0 1-1-1v-8.5Z" />
@@ -66,7 +66,7 @@ function Navbar() {
 
   return (
     <header className="navbar">
-      <NavLink to="/" className="brand" onClick={closeMenu}>
+      <NavLink to="/home" className="brand" onClick={closeMenu}>
         <div className="brand-icon">
           <img src={storeIcon} alt="" width="40" height="40" />
         </div>
@@ -97,7 +97,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive ? 'nav-link active' : 'nav-link'
             }
-            end={item.path === '/'}
+            end
           >
             <span className="nav-link-icon">{item.icon}</span>
             <span>{item.label}</span>
