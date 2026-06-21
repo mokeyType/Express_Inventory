@@ -1,35 +1,24 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, Navigate } from 'react-router-dom'
 import './Home.css'
-import FeatureCard from '../components/FeatureCard'
-
-const features = [
-  {
-    icon: 'box',
-    title: 'Inventory Tracking',
-    description: 'Keep stock counts accurate and view item movement in real time.',
-  },
-  {
-    icon: 'trend',
-    title: 'Sales Management',
-    description: 'Monitor orders, invoices, and revenue from your personal inventory.',
-  },
-  {
-    icon: 'chart',
-    title: 'Analytics Dashboard',
-    description: 'Visualize your inventory trends and sales performance clearly.',
-  },
-]
+import { useAuth } from '../context/useAuth'
 
 function Landing() {
+  const { isAuthenticated, loading } = useAuth()
+
+  if (!loading && isAuthenticated) {
+    return <Navigate to="/home" replace />
+  }
+
   return (
     <div className="home-page">
       <section className="home-hero">
         <div className="hero-copy">
           <span className="eyebrow">ExpressInventory</span>
-          <h1>Welcome to a smarter inventory workflow.</h1>
+          <h1>Manage store inventory and sales with ease.</h1>
           <p>
-            Explore ExpressInventory before signing in. Learn how the app helps store owners
-            manage products, sales, and stock without logging in.
+            ExpressInventory helps you keep products, stock, and sales in one place. Sign in to access
+            your dashboard, manage products, and view analytics.
           </p>
 
           <div className="hero-actions">
@@ -44,15 +33,15 @@ function Landing() {
           <div className="hero-stats">
             <div className="hero-stat">
               <strong>Fast</strong>
-              <p>Quick setup for your inventory team.</p>
+              <p>Quick login and easy inventory access.</p>
             </div>
             <div className="hero-stat">
               <strong>Clear</strong>
-              <p>Organized product and sales data in one place.</p>
+              <p>Simple workflows for products and sales.</p>
             </div>
             <div className="hero-stat">
               <strong>Secure</strong>
-              <p>Private workspace for each signed-in user.</p>
+              <p>Protected tenant data for every user.</p>
             </div>
           </div>
         </div>
@@ -60,40 +49,27 @@ function Landing() {
         <aside className="hero-panel">
           <div className="hero-panel-card">
             <div className="panel-top">
-              <span>Landing page</span>
-              <strong>Public access</strong>
+              <span>Public landing</span>
+              <strong>Login to continue</strong>
             </div>
             <div className="panel-metric">
-              <span>Get started</span>
-              <strong>Login or register</strong>
+              <span>Start here</span>
+              <strong>Access your dashboard</strong>
             </div>
             <div className="panel-bars" aria-label="Landing preview">
-              <span style={{ height: '56%' }} />
-              <span style={{ height: '72%' }} />
+              <span style={{ height: '52%' }} />
+              <span style={{ height: '74%' }} />
               <span style={{ height: '60%' }} />
-              <span style={{ height: '82%' }} />
-              <span style={{ height: '48%' }} />
+              <span style={{ height: '88%' }} />
+              <span style={{ height: '42%' }} />
             </div>
             <ul>
-              <li>Preview the product flow</li>
-              <li>Review sales and analytics tools</li>
-              <li>Sign in for your private workspace</li>
+              <li>Login and unlock the app</li>
+              <li>Manage products and sales securely</li>
+              <li>Review analytics after login</li>
             </ul>
           </div>
         </aside>
-      </section>
-
-      <section className="features-section">
-        <div className="section-head">
-          <p className="eyebrow">Why ExpressInventory</p>
-          <h2>Everything you need to manage store inventory and sales.</h2>
-        </div>
-
-        <div className="feature-grid">
-          {features.map((feature) => (
-            <FeatureCard key={feature.title} feature={feature} />
-          ))}
-        </div>
       </section>
     </div>
   )
