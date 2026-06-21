@@ -15,7 +15,7 @@
   letter-spacing: 0.18em;
   font-size: 0.86rem;
   font-weight: 700;
-  color: #2563eb;
+  color: #22c55e;
 }
 
 .settings-hero h1 {
@@ -27,7 +27,7 @@
 .settings-hero p {
   margin: 0;
   max-width: 760px;
-  color: #475569;
+  color: #aeb9b1;
   line-height: 1.85;
 }
 
@@ -38,10 +38,10 @@
 }
 
 .settings-card {
-  background: #ffffff;
-  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: #151a16;
+  border: 1px solid rgba(126, 146, 132, 0.16);
   border-radius: 24px;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
   padding: 2rem;
 }
 
@@ -56,7 +56,7 @@
 
 .settings-card p {
   margin: 0 0 1rem;
-  color: #475569;
+  color: #aeb9b1;
   font-size: 0.95rem;
   line-height: 1.75;
 }
@@ -80,11 +80,11 @@
   place-items: center;
   justify-self: center;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb 0%, #14b8a6 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #22c55e 0%, #14b8a6 100%);
+  color: #07110a;
   font-size: 2.3rem;
   font-weight: 900;
-  box-shadow: 0 18px 36px rgba(37, 99, 235, 0.24);
+  box-shadow: 0 18px 36px rgba(34, 197, 94, 0.24);
 }
 
 .account-summary {
@@ -93,7 +93,7 @@
 }
 
 .account-label {
-  color: #2563eb;
+  color: #22c55e;
   font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -102,13 +102,13 @@
 
 .account-summary h2 {
   margin: 0;
-  color: #0f172a;
+  color: #f4f7f5;
   font-size: 1.35rem;
 }
 
 .account-summary p {
   margin: 0;
-  color: #64748b;
+  color: #8f9d93;
   overflow-wrap: anywhere;
 }
 
@@ -118,8 +118,8 @@
   margin: 0;
   padding: 1rem;
   border-radius: 16px;
-  background: #f8fafc;
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: #1b211d;
+  border: 1px solid rgba(126, 146, 132, 0.18);
   text-align: left;
 }
 
@@ -131,14 +131,14 @@
 }
 
 .account-details dt {
-  color: #64748b;
+  color: #8f9d93;
   font-size: 0.82rem;
   font-weight: 700;
 }
 
 .account-details dd {
   margin: 0;
-  color: #0f172a;
+  color: #f4f7f5;
   font-size: 0.88rem;
   font-weight: 800;
   text-align: right;
@@ -156,14 +156,14 @@
 
 .form-group label {
   font-weight: 600;
-  color: #1f2937;
+  color: #dde5df;
   font-size: 0.96rem;
 }
 
 .form-group input,
 .form-group textarea {
   padding: 0.85rem 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid rgba(126, 146, 132, 0.28);
   border-radius: 12px;
   font-size: 0.95rem;
   font-family: inherit;
@@ -173,8 +173,8 @@
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.08);
 }
 
 .form-group textarea {
@@ -193,8 +193,8 @@
   padding: 0.9rem 1.5rem;
   border-radius: 12px;
   border: none;
-  background: #2563eb;
-  color: #ffffff;
+  background: #22c55e;
+  color: #07110a;
   font-weight: 600;
   font-size: 0.96rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -203,16 +203,16 @@
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 32px rgba(37, 99, 235, 0.18);
+  box-shadow: 0 16px 32px rgba(34, 197, 94, 0.18);
 }
 
 .btn-secondary {
   flex: 1;
   padding: 0.9rem 1.5rem;
   border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  background: #f8fafc;
-  color: #111827;
+  border: 1px solid rgba(126, 146, 132, 0.3);
+  background: #1b211d;
+  color: #f4f7f5;
   font-weight: 600;
   font-size: 0.96rem;
   transition: transform 0.2s ease, background 0.2s ease;
@@ -221,7 +221,7 @@
 
 .btn-secondary:hover {
   transform: translateY(-2px);
-  background: #eef2ff;
+  background: #1c2920;
 }
 
 .danger-card {

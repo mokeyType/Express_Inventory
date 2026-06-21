@@ -9,8 +9,8 @@
   gap: 2.25rem;
   align-items: center;
   padding: 3.25rem 2.5rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 251, 255, 0.95) 100%);
-  border: 1px solid rgba(96, 165, 250, 0.16);
+  background: linear-gradient(135deg, rgba(21, 26, 22, 0.97) 0%, rgba(27, 33, 29, 0.95) 100%);
+  border: 1px solid rgba(74, 222, 128, 0.16);
   border-radius: 12px;
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -63,17 +63,17 @@
   min-width: 156px;
   padding: 0.85rem 1.25rem;
   border-radius: 8px;
-  color: #ffffff;
+  color: #f4f7f5;
   background: linear-gradient(180deg, var(--accent), var(--accent-strong));
   font-weight: 850;
-  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.22);
+  box-shadow: 0 16px 34px rgba(34, 197, 94, 0.22);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .hero-button:hover {
   background: var(--accent-strong);
   transform: translateY(-2px);
-  box-shadow: 0 20px 42px rgba(37, 99, 235, 0.26);
+  box-shadow: 0 20px 42px rgba(34, 197, 94, 0.26);
 }
 
 .hero-stats {
@@ -110,10 +110,10 @@
   gap: 1.15rem;
   padding: 1.35rem;
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(37, 99, 235, 0.95), rgba(37, 99, 235, 0.82));
-  color: #ffffff;
+  background: linear-gradient(180deg, rgba(34, 197, 94, 0.95), rgba(34, 197, 94, 0.82));
+  color: #f4f7f5;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
 }
 
 .panel-top {
@@ -133,8 +133,8 @@
 .panel-top strong {
   padding: 0.35rem 0.65rem;
   border-radius: 999px;
-  color: #1e3a8a;
-  background: #dbeafe;
+  color: #86efac;
+  background: #163d26;
   font-size: 0.75rem;
   text-transform: uppercase;
 }
@@ -148,7 +148,7 @@
 }
 
 .panel-metric strong {
-  color: #ffffff;
+  color: #f4f7f5;
   font-size: 2rem;
   transition: color 0.2s ease;
 }
@@ -161,12 +161,12 @@
   gap: 0.7rem;
   padding: 1rem;
   border-radius: 8px;
-  background: rgba(37, 99, 235, 0.18);
+  background: rgba(34, 197, 94, 0.18);
 }
 
 .panel-bars span {
   border-radius: 8px 8px 3px 3px;
-  background: linear-gradient(180deg, #93c5fd 0%, #2563eb 100%);
+  background: linear-gradient(180deg, #86efac 0%, #22c55e 100%);
   transition: height 0.45s ease;
 }
 
@@ -225,23 +225,23 @@
 
 .feature-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(37, 99, 235, 0.28);
-  box-shadow: 0 22px 46px rgba(15, 23, 42, 0.09);
+  border-color: rgba(34, 197, 94, 0.28);
+  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.09);
 }
 
 .feature-card.active {
-  border-color: rgba(37, 99, 235, 0.46);
-  background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
-  box-shadow: 0 24px 54px rgba(37, 99, 235, 0.12);
+  border-color: rgba(34, 197, 94, 0.46);
+  background: linear-gradient(180deg, #151a16 0%, #18231b 100%);
+  box-shadow: 0 24px 54px rgba(34, 197, 94, 0.12);
 }
 
 .feature-card.active .feature-icon {
-  color: #ffffff;
+  color: #07110a;
   background: var(--accent);
 }
 
 .feature-card:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, 0.25);
+  outline: 3px solid rgba(34, 197, 94, 0.25);
   outline-offset: 3px;
 }
 
@@ -267,13 +267,13 @@
 
 .feature-card h3 {
   margin: 0;
-  color: #0f172a;
+  color: #f4f7f5;
   font-size: 1.02rem;
 }
 
 .feature-card p {
   margin: 0.45rem 0 0;
-  color: #64748b;
+  color: #8f9d93;
   line-height: 1.7;
 }
 
@@ -283,13 +283,13 @@
   margin-top: 1rem;
   padding: 1.15rem 1.25rem;
   border-radius: 8px;
-  background: #ffffff;
-  border: 1px solid rgba(37, 99, 235, 0.18);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
+  background: #151a16;
+  border: 1px solid rgba(34, 197, 94, 0.18);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.05);
 }
 
 .feature-spotlight span {
-  color: #2563eb;
+  color: #22c55e;
   font-size: 0.78rem;
   font-weight: 850;
   letter-spacing: 0.1em;
@@ -297,13 +297,13 @@
 }
 
 .feature-spotlight strong {
-  color: #0f172a;
+  color: #f4f7f5;
   font-size: 1.18rem;
 }
 
 .feature-spotlight p {
   margin: 0;
-  color: #64748b;
+  color: #8f9d93;
   line-height: 1.65;
 }
 
@@ -322,7 +322,7 @@
   margin: 0.5rem 0 0;
   font-size: clamp(1.95rem, 2.5vw, 2.8rem);
   line-height: 1.08;
-  color: #0f172a;
+  color: #f4f7f5;
 }
 
 .slider-panel {
@@ -331,9 +331,9 @@
   margin: 0 auto;
   padding: 2rem;
   border-radius: 26px;
-  background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
-  border: 1px solid rgba(37, 99, 235, 0.14);
-  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.06);
+  background: linear-gradient(180deg, #151a16 0%, #18231b 100%);
+  border: 1px solid rgba(34, 197, 94, 0.14);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.06);
 }
 
 .slider-track {
@@ -349,9 +349,9 @@
   transition: opacity 0.35s ease, transform 0.35s ease;
   padding: 1.75rem;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+  background: rgba(21, 26, 22, 0.95);
+  border: 1px solid rgba(126, 146, 132, 0.18);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
   display: grid;
   gap: 1rem;
 }
@@ -368,8 +368,8 @@
   gap: 0.4rem;
   padding: 0.45rem 0.8rem;
   border-radius: 999px;
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: #163d26;
+  color: #16a34a;
   font-size: 0.8rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -378,14 +378,14 @@
 
 .slider-item h3 {
   margin: 0;
-  color: #0f172a;
+  color: #f4f7f5;
   font-size: clamp(1.8rem, 2.1vw, 2.4rem);
   line-height: 1.08;
 }
 
 .slider-item p {
   margin: 0;
-  color: #475569;
+  color: #aeb9b1;
   line-height: 1.8;
   max-width: 760px;
 }
@@ -393,7 +393,7 @@
 .slider-item strong {
   display: inline-flex;
   margin-top: 0.8rem;
-  color: #0f172a;
+  color: #f4f7f5;
   font-size: 0.95rem;
   font-weight: 700;
 }
@@ -416,26 +416,26 @@
   min-height: 44px;
   padding: 0 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  background: #ffffff;
-  color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #151a16;
+  color: #f4f7f5;
   font-weight: 700;
   transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .slider-button:hover {
-  background: #eff6ff;
+  background: #18231b;
   transform: translateY(-1px);
 }
 
 .slider-button-primary {
-  background: #2563eb;
+  background: #22c55e;
   border-color: transparent;
-  color: #ffffff;
+  color: #07110a;
 }
 
 .slider-button-primary:hover {
-  background: #1d4ed8;
+  background: #16a34a;
 }
 
 .slider-dots {
@@ -450,14 +450,14 @@
   height: 0.85rem;
   border-radius: 999px;
   border: none;
-  background: rgba(148, 163, 184, 0.55);
+  background: rgba(126, 146, 132, 0.55);
   cursor: pointer;
   transition: width 0.2s ease, background 0.2s ease;
 }
 
 .slider-dot.active {
   width: 1.4rem;
-  background: #2563eb;
+  background: #22c55e;
 }
 
 .choose-layout {
@@ -470,14 +470,14 @@
 .benefit-panel {
   padding: 1.6rem;
   border-radius: 8px;
-  background: #ffffff;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
+  background: #151a16;
+  border: 1px solid rgba(126, 146, 132, 0.18);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.05);
 }
 
 .choose-panel {
-  background: #ffffff;
-  color: #0f172a;
+  background: #151a16;
+  color: #f4f7f5;
 }
 
 .choose-panel h2,
@@ -489,12 +489,12 @@
 .choose-panel p,
 .benefit-panel p {
   margin: 0;
-  color: #475569;
+  color: #aeb9b1;
   line-height: 1.75;
 }
 
 .choose-panel p {
-  color: #475569;
+  color: #aeb9b1;
 }
 
 .benefits-list {
@@ -508,7 +508,7 @@
   gap: 0.85rem;
   padding: 0.85rem;
   border-radius: 8px;
-  background: #f8fafc;
+  background: #1b211d;
 }
 
 .benefit-dot {
@@ -517,12 +517,12 @@
   margin-top: 0.45rem;
   flex: 0 0 auto;
   border-radius: 999px;
-  background: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.14);
 }
 
 .benefit-card p {
-  color: #0f172a;
+  color: #f4f7f5;
   font-weight: 700;
 }
 
@@ -530,12 +530,12 @@
   margin-top: 2.5rem;
   padding: 1.25rem 0 0;
   text-align: center;
-  color: #64748b;
+  color: #8f9d93;
   font-size: 0.92rem;
 }
 
 .home-footer span {
-  color: #0f172a;
+  color: #f4f7f5;
   font-weight: 850;
 }
 
