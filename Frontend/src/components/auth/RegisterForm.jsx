@@ -43,7 +43,7 @@ function RegisterForm() {
     try {
       setSubmitting(true)
       await register(formData)
-      navigate('/dashboard', { replace: true })
+      navigate('/home', { replace: true })
     } catch (error) {
       setMessage(getRegisterError(error))
     } finally {
