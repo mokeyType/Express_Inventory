@@ -12,17 +12,20 @@ import java.util.Optional;
 
 public interface ProductRepo extends JpaRepository<Product, Integer> {
 
-    Page<Product> findByOwner(User owner, Pageable pageable);
+    Page<Product> findByOwnerAndIsDeleteTrue(User owner, Pageable pageable);
 
     Optional<Product> findByProductIdAndOwner(int productId, User owner);
+    Optional<Product> findByProductIdAndOwnerAndIsDeleteTrue(int productId, User owner);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Optional<Product> findWithLockByProductIdAndOwner(int productId, User owner);
+    Optional<Product> findWithLockByProductIdAndOwnerAndIsDeleteTrue(int productId, User owner);
 
     boolean existsByProductIdAndOwner(int productId, User owner);
 
-    Page<Product> findByStockLessThanAndOwner(int stock, User owner, Pageable pageable);
+    Page<Product> findByStockLessThanAndOwnerAndIsDeleteTrue(int stock, User owner, Pageable pageable);
 
-    Page<Product> findByCategoryAndOwner(String category, User owner, Pageable pageable);
+    Page<Product> findByCategoryAndOwnerAndIsDeleteTrue(String category, User owner, Pageable pageable);
 
-    Page<Product> findByNameContainingIgnoreCaseAndOwner(String name,User owner,Pageable pageable);
+    Page<Product> findByNameContainingIgnoreCaseAndOwnerAndIsDeleteTrue(
+            String name, User owner, Pageable pageable);
 }

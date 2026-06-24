@@ -50,7 +50,7 @@ public class ProductService {
         User user = authUtil.getCurrentUser();
         Pageable pageable = buildPageable(page, size, sortBy);
 
-        return productRepository.findByOwner(user, pageable)
+        return productRepository.findByOwnerAndIsDeleteTrue(user, pageable)
                 .map(this::toResponse);
     }
 
@@ -59,7 +59,8 @@ public class ProductService {
         User user = authUtil.getCurrentUser();
         Pageable pageable = buildPageable(page, size, sortBy);
 
-        return productRepository.findByCategoryAndOwner(normalizeText(category), user, pageable)
+        return productRepository.findByCategoryAndOwnerAndIsDeleteTrue(
+                        normalizeText(category), user, pageable)
                 .map(this::toResponse);
     }
 
@@ -67,7 +68,7 @@ public class ProductService {
         User user = authUtil.getCurrentUser();
 
         Product product = productRepository
-                .findByProductIdAndOwner(id, user)
+                .findByProductIdAndOwnerAndIsDeleteTrue(id, user)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Product with id " + id + " not found"
                 ));
@@ -79,27 +80,29 @@ public class ProductService {
         User user = authUtil.getCurrentUser();
         Pageable pageable = buildPageable(page, size, sortBy);
 
-        return productRepository.findByStockLessThanAndOwner(minStock, user, pageable)
+        return productRepository.findByStockLessThanAndOwnerAndIsDeleteTrue(
+                        minStock, user, pageable)
                 .map(this::toResponse);
     }
 
     public void deleteProduct(int id) {
         User user = authUtil.getCurrentUser();
 
-        Product product = productRepository.findByProductIdAndOwner(id, user)
+        Product product = productRepository.findByProductIdAndOwnerAndIsDeleteTrue(id, user)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Product with id " + id + " not found"
                 ));
 
-        productRepository.delete(product);
-        log.info("Product {} deleted by user {}", id, user.getId());
+        product.setIsDelete(false);
+        productRepository.save(product);
+        log.info("Product {} soft-deleted by user {}", id, user.getId());
     }
 
     public ProductResponse upsertProduct(int id, ProductRequest request) {
         User user = authUtil.getCurrentUser();
 
         Product product = productRepository
-                .findByProductIdAndOwner(id, user)
+                .findByProductIdAndOwnerAndIsDeleteTrue(id, user)
                 .orElse(new Product());
 
         applyRequest(product, request);
@@ -112,7 +115,7 @@ public class ProductService {
         User user = authUtil.getCurrentUser();
         Pageable pageable = buildPageable(page,size,sortBy);
 
-        return productRepository.findByNameContainingIgnoreCaseAndOwner(
+        return productRepository.findByNameContainingIgnoreCaseAndOwnerAndIsDeleteTrue(
                 normalizeText(name), user,pageable
         ).map(this::toResponse);
     }

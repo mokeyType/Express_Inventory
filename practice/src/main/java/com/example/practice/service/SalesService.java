@@ -179,7 +179,7 @@ public class SalesService {
             int requestedQuantity = entry.getValue();
 
             Product product = productRepository
-                    .findWithLockByProductIdAndOwner(productId, user)
+                    .findWithLockByProductIdAndOwnerAndIsDeleteTrue(productId, user)
                     .orElseThrow(() -> new ResourceNotFoundException(
                             "Product with id " + productId + " not found"
                     ));

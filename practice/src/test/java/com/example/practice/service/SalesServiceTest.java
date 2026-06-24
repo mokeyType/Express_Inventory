@@ -84,7 +84,7 @@ class SalesServiceTest {
         product.setStock(5);
         product.setPrice(new BigDecimal("10.50"));
 
-        when(productRepo.findWithLockByProductIdAndOwner(11, user))
+        when(productRepo.findWithLockByProductIdAndOwnerAndIsDeleteTrue(11, user))
                 .thenReturn(Optional.of(product));
         when(saleRepo.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -114,7 +114,7 @@ class SalesServiceTest {
         product.setStock(2);
         product.setPrice(new BigDecimal("20.00"));
 
-        when(productRepo.findWithLockByProductIdAndOwner(9, user))
+        when(productRepo.findWithLockByProductIdAndOwnerAndIsDeleteTrue(9, user))
                 .thenReturn(Optional.of(product));
 
         SaleRequest request = new SaleRequest();
@@ -138,9 +138,9 @@ class SalesServiceTest {
         Product firstProduct = product(1, "Keyboard", 10, "10.00");
         Product thirdProduct = product(3, "Mouse", 10, "20.00");
 
-        when(productRepo.findWithLockByProductIdAndOwner(1, user))
+        when(productRepo.findWithLockByProductIdAndOwnerAndIsDeleteTrue(1, user))
                 .thenReturn(Optional.of(firstProduct));
-        when(productRepo.findWithLockByProductIdAndOwner(3, user))
+        when(productRepo.findWithLockByProductIdAndOwnerAndIsDeleteTrue(3, user))
                 .thenReturn(Optional.of(thirdProduct));
         when(saleRepo.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -154,8 +154,8 @@ class SalesServiceTest {
         salesService.createSale(request);
 
         InOrder inOrder = inOrder(productRepo);
-        inOrder.verify(productRepo).findWithLockByProductIdAndOwner(1, user);
-        inOrder.verify(productRepo).findWithLockByProductIdAndOwner(3, user);
+        inOrder.verify(productRepo).findWithLockByProductIdAndOwnerAndIsDeleteTrue(1, user);
+        inOrder.verify(productRepo).findWithLockByProductIdAndOwnerAndIsDeleteTrue(3, user);
     }
 
     private SaleItemRequest item(int productId, int quantity) {

@@ -20,7 +20,7 @@ public class OAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     private final JwtCookieService jwtCookieService;
 
-    @Value("${app.oauth.failure-redirect}")
+    @Value("${app.oauth.failure-redirect:https://express-inventory.vercel.app/login}")
     private String failureRedirect;
 
     @Value("${app.security.cookies.secure:false}")
@@ -41,6 +41,17 @@ public class OAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         log.warn("OAuth login failed: {}", exception.getMessage());
         clearOAuthCookie(response);
         jwtCookieService.clearJwtCookie(response);
+
+        if (failureRedirect == null || failureRedirect.isBlank()) {
+            // No redirect configured — return JSON (useful for tests and API clients)
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"error\": \"OAuth authentication failed\"}");
+            response.getWriter().flush();
+            return;
+        }
+
         response.sendRedirect(failureRedirect);
     }
 

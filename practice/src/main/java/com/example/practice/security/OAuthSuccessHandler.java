@@ -37,7 +37,7 @@ public class OAuthSuccessHandler
     @Autowired
     private JwtCookieService jwtCookieService;
 
-    @Value("${app.oauth.success-redirect}")
+    @Value("${app.oauth.success-redirect:https://express-inventory.vercel.app/}")
     private String successRedirect;
 
     @Value("${app.security.cookies.secure:false}")

@@ -44,7 +44,7 @@ public class WebConfig {
     @Autowired
     private OAuthFailureHandler failureHandler;
 
-    @Value("${app.cors.allowed-origins}")
+    @Value("${app.cors.allowed-origins:https://express-inventory.vercel.app}")
     private String allowedOrigins;
 
     @Bean

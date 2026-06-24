@@ -29,13 +29,16 @@ public class Product {
     @Column(name = "P_stock")
     private Integer stock;
 
+    @Column(name = "is_delete", nullable = false, columnDefinition = "boolean default true")
+    private boolean isDelete = true;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User owner;                              // ← NEW
 
     @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<SalesItem> salesItems;
 
     public Product() {}
@@ -64,6 +67,9 @@ public class Product {
 
     public Integer getStock() { return stock; }
     public void setStock(Integer stock) { this.stock = stock; }
+
+    public boolean getIsDelete() { return isDelete; }
+    public void setIsDelete(boolean isDelete) { this.isDelete = isDelete; }
 
     public User getOwner() { return owner; }          // ← NEW
     public void setOwner(User owner) { this.owner = owner; }  // ← NEW
