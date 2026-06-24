@@ -29,6 +29,9 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JWTService jwtService;
 
+    @Autowired
+    private JwtCookieService jwtCookieService;
+
     // ─── Skip OAuth URLs completely ────────────────────
     // OAuth flow must never go through JWT filter
     @Override
@@ -76,6 +79,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 email = jwtService.extractUserName(token);
             } catch (Exception e) {
                 log.warn("Invalid JWT: {}", e.getMessage());
+                jwtCookieService.clearJwtCookie(response);
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -85,8 +89,18 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext()
                         .getAuthentication() == null) {
 
-            UserDetails userDetails =
-                    userDetailsService.loadUserByUsername(email);
+            UserDetails userDetails;
+            try {
+                userDetails = userDetailsService.loadUserByUsername(email);
+            } catch (Exception e) {
+                // The token can still be cryptographically valid after its user was
+                // deleted (for example, after a database reset). Treat it as a stale
+                // session instead of failing public authentication endpoints with 500.
+                log.warn("JWT user no longer exists: {}", email);
+                jwtCookieService.clearJwtCookie(response);
+                filterChain.doFilter(request, response);
+                return;
+            }
 
             if (jwtService.validateToken(token, userDetails)) {
 
